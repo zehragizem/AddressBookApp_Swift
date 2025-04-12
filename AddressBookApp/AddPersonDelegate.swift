@@ -13,7 +13,6 @@ protocol AddPersonDelegate: AnyObject {
     func didEditPerson(_ person: Person, at index: Int)
 }
 
-
 class AddPersonViewController: UIViewController {
 
     @IBOutlet weak var nameTextField: UITextField!
@@ -23,20 +22,21 @@ class AddPersonViewController: UIViewController {
     var editIndex: Int?
 
     weak var delegate: AddPersonDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let person = existingPerson {
-                title = "Update Person"
-                nameTextField.text = person.name
-                telephoneTextField.text = person.telephone
-                addressTextField.text = person.address
-            } else {
-                title = "Create Person"
-                nameTextField.text = ""
-                telephoneTextField.text = ""
-                addressTextField.text = ""
-            }
+            title = "Update Person"
+            nameTextField.text = person.name
+            telephoneTextField.text = person.telephone
+            addressTextField.text = person.address
+        } else {
+            title = "Create Person"
+            nameTextField.text = ""
+            telephoneTextField.text = ""
+            addressTextField.text = ""
+        }
     }
 
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -46,16 +46,15 @@ class AddPersonViewController: UIViewController {
               !name.isEmpty, !tel.isEmpty else {
             return
         }
-
-        let updatedPerson = Person(name: name, telephone: tel, address: address)
+        
+        let newPerson = Person(name: name, telephone: tel, address: address)
 
         if let index = editIndex {
-            delegate?.didEditPerson(updatedPerson, at: index)
+            delegate?.didEditPerson(newPerson, at: index)
         } else {
-            delegate?.didAddPerson(updatedPerson)
+            delegate?.didAddPerson(newPerson)
         }
 
         navigationController?.popViewController(animated: true)
     }
-
 }

@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.title = "Contacts"
         tableView.delegate = self
         tableView.dataSource = self
+        people = DatabaseHelper.shared.getAllContacts()
     }
 
     // + Butonu tıklandığında
@@ -40,11 +41,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Silme işlemi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let personToDelete = people[indexPath.row]
+            DatabaseHelper.shared.deleteContact(person: personToDelete)
             people.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
     // Segue ile veri alma
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAddPerson",
@@ -64,10 +66,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 // Delegate protokolü
 extension ViewController: AddPersonDelegate {
     func didAddPerson(_ person: Person) {
+        DatabaseHelper.shared.saveContact(person: person)
         people.append(person)
         tableView.reloadData()
     }
     func didEditPerson(_ person: Person, at index: Int) {
+        let oldPerson = people[index]
+        DatabaseHelper.shared.updateContact(oldPerson: oldPerson, newPerson: person)
         people[index] = person
         tableView.reloadData()
     }
