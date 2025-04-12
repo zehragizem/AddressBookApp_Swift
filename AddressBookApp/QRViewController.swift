@@ -11,9 +11,10 @@ import UIKit
 class QRViewController: UIViewController {
 
     @IBOutlet weak var qrImageView: UIImageView!
-    
     var selectedPerson: Person?
-
+    
+    // MARK: - viewDidLoad
+    // Sets up the QR code for the selected person's details
     override func viewDidLoad() {
         super.viewDidLoad()
 
