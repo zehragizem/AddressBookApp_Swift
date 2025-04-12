@@ -7,4 +7,5 @@ target 'AddressBookApp' do
 
   # Pods for AddressBookApp
   pod 'RealmSwift'
+  pod 'EFQRCode'
 end

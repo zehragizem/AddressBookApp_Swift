@@ -6,19 +6,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        if let url = DatabaseHelper.shared.getDatabaseURL() {
-            //print("Database URL",url)
-        }
-        return true
-    }
 
     // MARK: UISceneSession Lifecycle
 
@@ -33,7 +28,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        // Migration
+        let config = Realm.Configuration(
+            schemaVersion: 1, // Versiyon numarasını güncellediğinizde artırın
+            migrationBlock: { migration, oldSchemaVersion in
+                if (oldSchemaVersion < 1) {
+                    // İlk versiyon için özel migrasyon işlemleri ekleyebilirsiniz
+                }
+            }
+        )
+
+        // Realm yapılandırmasını uygula
+        Realm.Configuration.defaultConfiguration = config
+
+        // Realm veritabanını aç
+        let realm = try! Realm()
+
+        if let url = Realm.Configuration.defaultConfiguration.fileURL {
+            print("Database URL: \(url)")
+        }
+
+        return true
+    }
 
 }
 

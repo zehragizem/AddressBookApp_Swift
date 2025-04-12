@@ -28,7 +28,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="oea-22-6Cy" kind="show" identifier="showAddPerson" id="p6B-YE-pae"/>
+                                            <segue destination="m7W-vc-0YL" kind="show" identifier="showQRCode" id="4Be-jv-aQg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -57,7 +57,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="933.58778625954199" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="1045" y="-7"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="0Xp-az-0es">
+            <objects>
+                <viewController id="m7W-vc-0YL" customClass="QRViewController" customModule="AddressBookApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Cqn-0z-gaK">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vus-i5-WKf">
+                                <rect key="frame" x="16" y="230" width="361" height="326"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="IIW-bo-DFM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="knh-6R-npT"/>
+                    <connections>
+                        <outlet property="qrImageView" destination="vus-i5-WKf" id="cBn-lL-vdr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uGH-H3-hFN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1043.5114503816794" y="829.57746478873241"/>
         </scene>
         <!--Add Person View Controller-->
         <scene sceneID="J4N-qc-4WN">
@@ -86,7 +111,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7C6-Mj-c60">
-                                <rect key="frame" x="149" y="378" width="98" height="41"/>
+                                <rect key="frame" x="139" y="378" width="108" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
@@ -131,7 +156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xvI-fi-lZo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1777.8625954198474" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="2088" y="-7"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7Gw-6i-4uU">
@@ -149,12 +174,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nzy-51-Y9o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6.8702290076335872" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="10" y="-7"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="CQP-C8-eCD"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

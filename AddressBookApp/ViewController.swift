@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import EFQRCode
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    
+
     var people: [Person] = []
 
     override func viewDidLoad() {
@@ -29,6 +30,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Tablo veri kaynakları
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selected = people[indexPath.row]
+        performSegue(withIdentifier: "showQRCode", sender: selected)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,6 +63,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 destination.editIndex = indexPath.row
             }
         }
+        else if segue.identifier == "showQRCode",
+                let destination = segue.destination as? QRViewController,
+                let selectedPerson = sender as? Person {
+            destination.selectedPerson = selectedPerson
+        }
         
     }
 
@@ -77,6 +87,13 @@ extension ViewController: AddPersonDelegate {
         tableView.reloadData()
     }
 
+}
+
+func generateQRCode(from string: String) -> UIImage? {
+    if let cgImage = EFQRCode.generate(content: string) {
+        return UIImage(cgImage: cgImage)
+    }
+    return nil
 }
 
 

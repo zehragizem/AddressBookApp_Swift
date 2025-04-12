@@ -5,8 +5,8 @@
 //  Created by Gizem Duman on 12.04.2025.
 //
 import RealmSwift
-
 class Person: Object{
+    @Persisted var id: String = UUID().uuidString // Primary Key ekledik
     @Persisted var name: String = ""
     @Persisted var telephone: String = ""
     @Persisted var address: String = ""
@@ -16,5 +16,8 @@ class Person: Object{
         self.name = name
         self.telephone = telephone
         self.address = address
+    }
+    override static func primaryKey() -> String? {
+        return "id" // id'yi birincil anahtar olarak belirledik
     }
 }
