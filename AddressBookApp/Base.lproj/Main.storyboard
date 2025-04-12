@@ -20,15 +20,53 @@
                                 <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PersonCell" id="3wj-3m-rjF">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PersonCell" id="3wj-3m-rjF" customClass="PersonCell" customModule="AddressBookApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3wj-3m-rjF" id="p7f-4B-w5a">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PersonCell" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3wj-3m-rjF" id="p7f-4B-w5a" customClass="PersonCell" customModule="AddressBookApp" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jl5-Wr-DGX">
+                                                    <rect key="frame" x="20" y="11" width="84" height="33"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWE-a7-VW7">
+                                                    <rect key="frame" x="119" y="11" width="88" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zfw-Xb-SYC">
+                                                    <rect key="frame" x="327" y="4" width="58" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="qrcode" catalog="system" title=""/>
+                                                    <connections>
+                                                        <action selector="qrButtonTapped:" destination="3wj-3m-rjF" eventType="touchUpInside" id="fQd-q4-7sf"/>
+                                                        <segue destination="m7W-vc-0YL" kind="show" identifier="showQRCode" id="Sq6-yM-TN5"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0CZ-wM-oPF">
+                                                    <rect key="frame" x="212" y="11" width="99" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="m7W-vc-0YL" kind="show" identifier="showQRCode" id="4Be-jv-aQg"/>
+                                            <outlet property="addressLabel" destination="0CZ-wM-oPF" id="Bjh-Qx-KuH"/>
+                                            <outlet property="nameLabel" destination="Jl5-Wr-DGX" id="6Au-wK-i6W"/>
+                                            <outlet property="phoneLabel" destination="JWE-a7-VW7" id="bfD-o8-HTc"/>
+                                            <outlet property="qrButton" destination="Zfw-Xb-SYC" id="5ZV-4O-BmD"/>
+                                            <segue destination="oea-22-6Cy" kind="show" identifier="showAddPerson" id="n6m-e6-EJs"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -57,7 +95,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1045" y="-7"/>
+            <point key="canvasLocation" x="1043.5114503816794" y="-7.042253521126761"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="0Xp-az-0es">
@@ -177,7 +215,11 @@
             <point key="canvasLocation" x="10" y="-7"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="n6m-e6-EJs"/>
+    </inferredMetricsTieBreakers>
     <resources>
+        <image name="qrcode" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

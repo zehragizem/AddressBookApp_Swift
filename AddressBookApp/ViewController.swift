@@ -8,7 +8,7 @@
 import UIKit
 import EFQRCode
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PersonCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -31,17 +31,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selected = people[indexPath.row]
-        performSegue(withIdentifier: "showQRCode", sender: selected)
-    }
+
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let person = people[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell", for: indexPath)
-        cell.textLabel?.text = person.name
-        cell.detailTextLabel?.text = person.telephone
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell", for: indexPath) as! PersonCell
+        cell.nameLabel.text = person.name
+        cell.phoneLabel.text = person.telephone
+        cell.addressLabel.text = person.address
+        cell.person = person
+        cell.delegate = self
         return cell
+    }
+
+    func didTapQRButton(for person: Person) {
+        performSegue(withIdentifier: "showQRCode", sender: person)
     }
     // Silme işlemi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
