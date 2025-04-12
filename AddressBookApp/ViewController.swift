@@ -37,14 +37,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.detailTextLabel?.text = person.telephone
         return cell
     }
+    // Silme işlemi
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            people.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 
     // Segue ile veri alma
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAddPerson",
            let destination = segue.destination as? AddPersonViewController {
             destination.delegate = self
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                destination.existingPerson = people[indexPath.row]
+                destination.editIndex = indexPath.row
+            }
         }
+        
     }
+
 }
 
 // Delegate protokolü
@@ -53,6 +67,11 @@ extension ViewController: AddPersonDelegate {
         people.append(person)
         tableView.reloadData()
     }
+    func didEditPerson(_ person: Person, at index: Int) {
+        people[index] = person
+        tableView.reloadData()
+    }
+
 }
 
 
