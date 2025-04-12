@@ -27,10 +27,16 @@ class AddPersonViewController: UIViewController {
         super.viewDidLoad()
         
         if let person = existingPerson {
-            nameTextField.text = person.name
-            telephoneTextField.text = person.telephone
-            addressTextField.text = person.address
-        }
+                title = "Update Person"
+                nameTextField.text = person.name
+                telephoneTextField.text = person.telephone
+                addressTextField.text = person.address
+            } else {
+                title = "Create Person"
+                nameTextField.text = ""
+                telephoneTextField.text = ""
+                addressTextField.text = ""
+            }
     }
 
     @IBAction func saveButtonTapped(_ sender: Any) {

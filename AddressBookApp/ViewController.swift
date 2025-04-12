@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Kişiler"
+        self.title = "Contacts"
         tableView.delegate = self
         tableView.dataSource = self
     }
