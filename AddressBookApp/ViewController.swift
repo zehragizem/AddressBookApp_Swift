@@ -1,15 +1,8 @@
-//
-//  ViewController.swift
-//  AddressBookApp
-//
-//  Created by Gizem Duman on 12.04.2025.
-//
-
 import UIKit
 import EFQRCode
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PersonCellDelegate, UISearchBarDelegate {
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
 
@@ -67,7 +60,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: - Table View Cell
     // Configures each cell with person details
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let person = filteredPeople[indexPath.row]
+        let person = filteredPeople[indexPath.row]  // Use filteredPeople instead of people
         let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell", for: indexPath) as! PersonCell
         cell.nameLabel.text = person.name
         cell.phoneLabel.text = person.telephone
@@ -87,9 +80,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Handles deleting a contact when swipe-to-delete is used
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let personToDelete = people[indexPath.row]
+            let personToDelete = filteredPeople[indexPath.row]  // Use filteredPeople here
             DatabaseHelper.shared.deleteContact(person: personToDelete)
-            people.remove(at: indexPath.row)
+            // Remove from both filteredPeople and people
+            if let indexInPeople = people.firstIndex(of: personToDelete) {
+                people.remove(at: indexInPeople)
+            }
+            filteredPeople.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -102,7 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             destination.delegate = self
 
             if let indexPath = tableView.indexPathForSelectedRow {
-                destination.existingPerson = people[indexPath.row]
+                destination.existingPerson = filteredPeople[indexPath.row]  // Use filteredPeople here
                 destination.editIndex = indexPath.row
             }
         }
@@ -119,7 +116,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 extension ViewController: AddPersonDelegate {
     func didAddPerson(_ person: Person) {
         DatabaseHelper.shared.saveContact(person: person)
-        people.append(person)
+        people.append(person)  // Add to both people and filteredPeople
+        filteredPeople.append(person)
         tableView.reloadData()
     }
 
@@ -127,6 +125,9 @@ extension ViewController: AddPersonDelegate {
         let oldPerson = people[index]
         DatabaseHelper.shared.updateContact(oldPerson: oldPerson, newPerson: person)
         people[index] = person
+        if let filteredIndex = filteredPeople.firstIndex(of: oldPerson) {
+            filteredPeople[filteredIndex] = person
+        }
         tableView.reloadData()
     }
 }
