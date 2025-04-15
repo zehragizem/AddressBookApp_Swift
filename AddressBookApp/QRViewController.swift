@@ -13,12 +13,26 @@ class QRViewController: UIViewController {
     @IBOutlet weak var qrImageView: UIImageView!
     var selectedPerson: Person?
     
-    // MARK: - viewDidLoad
-    // Sets up the QR code for the selected person's details
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if let person = selectedPerson {
+            // VCF (vCard) formatında QR kodu oluşturma
+            let vcfString = """
+            BEGIN:VCARD
+            VERSION:3.0
+            FN:\(person.name)
+            TEL:\(person.telephone)
+            ADR:\(person.address)
+            END:VCARD
+            """
+            
+            if let qrImage = generateQRCode(from: vcfString) {
+                qrImageView.image = qrImage
+            }
+            
+          
+            /*
             let jsonString = """
             {
                 "name": "\(person.name)",
@@ -29,6 +43,9 @@ class QRViewController: UIViewController {
             if let qrImage = generateQRCode(from: jsonString) {
                 qrImageView.image = qrImage
             }
+            */
         }
     }
+    
+
 }
